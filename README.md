@@ -20,3 +20,28 @@ Installeer dependencies.
 Je kan main.py uitvoeren om te zien of dependencies correct zijn geïnstalleerd.
 
 (Ik ben niet zeker of dit werkt)
+
+## Installeren Vue
+Eerst Node en nmp installeren:
+https://nodejs.org/en/download/  
+installeert zowel node als npm.
+
+Vue CLI installeren (als npm geïnstalleerd is):
+
+    npm install -g vue-cli
+Installeren node dependencies: Ga in client folder en installeer uit package.json:
+
+    cd client
+    npm install
+Je kan evt het project importeren in de vue GUI. lanceer met:
+
+    vue ui
+Bij 'import' de juiste map selecteren (client)
+
+### Dev server
+De dev server maakt een lokale webserver aan met hotreload, zodat je makkelijk het resultaat kan zien:
+
+Via vue ui: onder 'tasks', start 'serve', CLI:
+
+    npm run serve
+De app start dan in localhost in de aangegeven poort.
