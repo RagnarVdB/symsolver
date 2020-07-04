@@ -17,7 +17,7 @@ Creëer virtuele omgeving en activeer.
 Installeer dependencies.
 
     pip install -r requirements.txt
-Je kan main.py uitvoeren om te zien of dependencies correct zijn geïnstalleerd.
+Je kan test.py uitvoeren om te zien of dependencies correct zijn geïnstalleerd.
 
 (Ik ben niet zeker of dit werkt)
 

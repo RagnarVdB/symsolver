@@ -1,0 +1,6 @@
+Lanceer met pid in file:
+  $ gunicorn main:app -p main.pid -D
+Herstart server: 
+  $ kill -HUP `cat main.pid`
+Kill server:
+  $ kill `cat main.pid`
