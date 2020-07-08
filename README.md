@@ -33,8 +33,11 @@ Ga in de server folder.
     cd server
 Creëer virtuele omgeving en activeer.
 
+
     python -m venv venv
     venv/Scripts/activate
+In Visual Studio Code (met Python extensie) kan je de virtuele omgeving ook activeren met `CTRL`+`SHIFT`+`P`, Python: select python interpreter, en dan de interpreter te selecteren in `server\venv\Scripts\python.exe`.
+
 Installeer python dependencies uit requirements:
 
     pip install -r requirements.txt
