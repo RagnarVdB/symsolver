@@ -8,6 +8,8 @@ In de map waarin de code moet komen (git maakt daarin een map aan met de naam 's
     git clone https://GitHubUsernamehier:GitHubPasswordHier@github.com/RagnarVdB/sympy-GUI
 
 # Basic git gebruik
+Hieronder staan de belangrijkste git commands. Voor meer informatie, lees eerst https://guides.github.com/introduction/git-handbook/.
+
 Commit maken:
 
     git add .
