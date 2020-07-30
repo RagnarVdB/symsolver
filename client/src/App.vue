@@ -29,7 +29,7 @@
       <img src="./assets/menu_24px_rounded.svg" alt="menu" id="menu_ico" @click="toggleNav">
       <div id="logo">
         <!-- <h1 id="integral">\(\int\)</h1> -->
-        <svg width="30" viewBox="0 0 25 51" xmlns="http://www.w3.org/2000/svg" fill="#ffffff">
+        <svg width="24" viewBox="0 0 25 51" xmlns="http://www.w3.org/2000/svg" fill="#ffffff">
           <path d="M25 3.75226C25 5.1085 24.0054 5.69621 23.1013 5.69621C22.2423 5.69621 21.2477 5.1085 21.2477 3.79747C21.2477 3.16456 21.6094 2.12477 22.9204 1.94394C21.9259 1.08499 20.5244 0.994576 20.0723 0.994576C18.038 0.994576 16.5009 2.12477 15.868 10.443L15.009 21.6998C14.6474 26.7179 13.0199 39.8734 12.4322 42.2242C11.4376 46.293 9.26763 50.226 4.97288 50.226C2.2604 50.226 0 48.6438 0 46.4738C0 45.1175 0.994575 44.5298 1.89873 44.5298C2.75769 44.5298 3.75226 45.1175 3.75226 46.4286C3.75226 47.0615 3.3906 48.1013 2.07957 48.2821C3.02893 49.0958 4.38517 49.2315 4.97288 49.2315C7.54973 49.2315 9.17721 47.1971 9.76492 39.783L10.6239 28.5262C11.0307 23.0561 12.6582 10.3074 13.2007 7.82098C13.9693 4.38517 15.7324 0 20.0271 0C22.7396 0 25 1.58228 25 3.75226Z"/>
         </svg>
         <h1>Integral calculator</h1>
@@ -72,12 +72,16 @@ export default {
 }
 
 h1 {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   font-weight: 300;
   color: white;
   justify-self: center;
 }
 
+h2 {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -92,11 +96,11 @@ header {
   justify-content: space-evenly;
   background-color: #01579B;
   width: 100%;
-  height: 100px;
+  height: 70px;
 }
 
 #menu_ico {
-  width: 50px;
+  width: 40px;
 }
 
 #logo {
@@ -134,14 +138,14 @@ header {
   display: flex;
   align-items: center;
   text-decoration: none;
-  height: 70px;
+  height: 55px;
   width: 92%;
   border-radius: 7px;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 #nav img, #nav svg {
-  width: 40px;
+  width: 33px;
   margin-left: 10px;
   margin-right: 15px;
   fill: rgba(0, 0, 0, 0.54);
@@ -149,14 +153,13 @@ header {
 
 #nav_head {
   display: flex;
-  height: 80px;
+  height: 65px;
   align-items: center;
   width: 90%;
 }
 
 #nav_head h2 {
   color: black;
-  font-size: 1.4rem;
 }
 
 #nav_head svg {

@@ -52,17 +52,17 @@ export default {
 }
 h2 {
   color: black;
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   font-weight: 400;
 }
 
 h3 {
   font-weight: 300;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 p {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 300;
   color: rgba(0, 0, 0, 0.6);
 }
@@ -71,18 +71,18 @@ input {
   border: none;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   border-radius: 7px;
-  height: 45px;
+  height: 40px;
   font-size: 1.2rem;
 }
 
 input.small {
-  width: 70px;
+  width: 60px;
   text-align: center;
 }
 
 input.large {
   width: 100%;
-  height: 55px;
+  height: 50px;
   padding-left: 13px;
   padding-right: 13px;
   border-radius: 12px;
