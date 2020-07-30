@@ -8,7 +8,18 @@
       <h2>Integrand:</h2>
       <input type="text" v-model="integrand" class="large">
     </div>
-    
+    <div id="bounds">
+      <h2>Variables and bounds</h2>
+      <div id=bounds-table>
+        <h3>Variable</h3>
+        <h3>Lower bound</h3>
+        <h3>Upper bound</h3>
+          <input type="text" v-for="n in 3*varAmount" v-bind:key="n" v-on:input="setBounds(n - 1, $event.target.value)">
+      </div>
+      <p>Bounds can be left empty for indefinite integrals. Use inf for infinity. 
+        <br>
+        Symbols in the integrand not entered as variables will be treated as parameters.</p>
+    </div>
   </div>
 </template>
 
@@ -19,7 +30,17 @@ export default {
     return {
       varAmount: 1,
       integrand: '',
-      bounds: {},
+      bounds: [[null, null, null]],
+    }
+  },
+  methods: {
+    setBounds(n, value) {
+      const row = Math.floor(n/3)
+      const column = n % 3
+      if (!this.bounds[row]) {
+        this.bounds[row] = [null, null, null] //voeg lege rij toe aan matrix voor nieuwe variabele
+      }
+      this.bounds[row][column] = value
     }
   }
 }
@@ -33,6 +54,17 @@ h2 {
   color: black;
   font-size: 1.3rem;
   font-weight: 400;
+}
+
+h3 {
+  font-weight: 300;
+  font-size: 1.1rem;
+}
+
+p {
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.6);
 }
 
 input {
@@ -88,4 +120,29 @@ input.large {
   display: flex;
   flex-direction: column;
 }
+
+#bounds {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+#bounds-table {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 2fr 2fr;
+  justify-items: center;
+  gap: 20px 10px;
+  margin-bottom: 20px;
+}
+
+#bounds p {
+  margin-left: 8px;
+}
+
+#bounds-table input{
+  width: 80%;
+  text-align: center;
+}
+
 </style>
