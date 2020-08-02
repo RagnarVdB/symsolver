@@ -91,7 +91,7 @@ export default {
       const boundsReversed = bounds.slice().reverse()
       for (let bound of boundsReversed) {
         if (bound[0]) {
-          latex_string += ' d' + bound[0]
+          latex_string += ' \\: d' + bound[0]
         }
         
       }
@@ -234,13 +234,15 @@ input.large {
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   display: flex;
   justify-content: center;
-  align-items: center
+  align-items: center;
+  
 }
 
 #preview p {
   text-align: center;
   color: black;
   font-size: 1.3rem;
+  overflow: scroll;
 }
 
 </style>
