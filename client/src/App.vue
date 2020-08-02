@@ -49,11 +49,11 @@ export default {
     }
   },
   mounted() {
-      // laad mathjax
-      let recaptchaScript = document.createElement('script')
-      recaptchaScript.setAttribute('src', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js')
-      document.head.appendChild(recaptchaScript)
-    },
+    // laad mathjax
+    let MathJax = document.createElement('script')
+    MathJax.setAttribute('src', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js')
+    document.head.appendChild(MathJax)
+  },
   methods: {
     toggleNav() {
       this.expanded = !this.expanded

@@ -2,11 +2,17 @@
   <div class="integrals">
     <div id="variables">
       <h2>Number of Variables: </h2>
-      <input type="number" v-model="varAmount" class="small">
+      <input
+        type="number"
+        v-model.number="varAmount"
+        class="small">
     </div>
     <div id="integrand">
       <h2>Integrand:</h2>
-      <input type="text" v-model="integrand" class="large">
+      <input
+        type="text"
+        v-model="integrand"
+        class="large">
     </div>
     <div id="bounds">
       <h2>Variables and bounds</h2>
@@ -14,33 +20,108 @@
         <h3>Variable</h3>
         <h3>Lower bound</h3>
         <h3>Upper bound</h3>
-          <input type="text" v-for="n in 3*varAmount" v-bind:key="n" v-on:input="setBounds(n - 1, $event.target.value)">
+          <input
+            type="text"
+            v-for="n in 3*varAmount"
+            v-bind:key="n"
+            
+            v-on:input="setBounds(n - 1, $event.target.value)"
+            >
+            
       </div>
       <p>Bounds can be left empty for indefinite integrals. Use inf for infinity. 
         <br>
         Symbols in the integrand not entered as variables will be treated as parameters.</p>
     </div>
+    <div id="preview">
+      <p :key="latex">$${{ latex }}$$</p>
+    </div>
   </div>
 </template>
 
 <script>
+import getCorrectOrder from '../functions/IntegralOrder.js'
+
 export default {
   name: 'Integrals',
+  created() {
+    const MathJax = document.createElement('script')
+    MathJax.setAttribute('src', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js')
+    document.head.appendChild(MathJax)
+  },
   data() {
     return {
       varAmount: 1,
       integrand: '',
-      bounds: [[null, null, null]],
+      bounds: [['', '', '']],
     }
+  },
+  mounted() {
+    // laad mathjax
+    let MathJax = document.createElement('script')
+    MathJax.setAttribute('src', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js')
+    document.head.appendChild(MathJax)
   },
   methods: {
     setBounds(n, value) {
       const row = Math.floor(n/3)
       const column = n % 3
       if (!this.bounds[row]) {
-        this.bounds[row] = [null, null, null] //voeg lege rij toe aan matrix voor nieuwe variabele
+        this.bounds[row] = ['', '', ''] //voeg lege rij toe aan matrix voor nieuwe variabele
       }
-      this.bounds[row][column] = value
+      let new_row = this.bounds[row]
+      new_row[column] = value
+      this.$set(this.bounds, row, new_row) // gebruik $set voor reactiviteit
+    },
+    reRender() {
+      console.log('rerendering')
+      if (window.MathJax) {
+        window.MathJax.typeset()
+      }
+    },
+  },
+  computed: {
+    latex() {
+      let latex_string = ''
+      const bounds = (this.boundsOrdered) ? this.boundsOrdered : this.bounds
+      for (let bound of bounds) {
+        latex_string += `\\int_{${bound[1]}}^{${bound[2]}}`
+      }
+      latex_string += this.integrand // moet Latex code worden
+      const boundsReversed = bounds.slice().reverse()
+      for (let bound of boundsReversed) {
+        if (bound[0]) {
+          latex_string += ' d' + bound[0]
+        }
+        
+      }
+      return latex_string
+    },
+    boundsOrdered() {
+      const vars = this.bounds.map(bound => bound[0])
+      if (!vars.every(el => Boolean(el))) {
+        return false
+      } else {
+        const usedVars = {}
+        for (const variable of vars) {
+          usedVars[variable] = []
+        }
+        for (const bound of this.bounds) {
+          for (const variable of vars) {
+            if (bound[1].includes(variable) || bound[2].includes(variable)) {
+              usedVars[bound[0]].push(variable)
+            }
+          }
+        }
+        return getCorrectOrder(this.bounds, usedVars)
+        
+      }
+    }
+  },
+  watch: {
+    latex() {
+      // wacht tot volgende cycle event loop zodat nieuwe code gerenderd wordt
+      this.$nextTick().then(() => { this.reRender() })
     }
   }
 }
@@ -143,6 +224,23 @@ input.large {
 #bounds-table input{
   width: 80%;
   text-align: center;
+}
+
+#preview {
+  margin-top: 40px;
+  width: 90%;
+  height: fit-content;
+  align-self: center;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+#preview p {
+  text-align: center;
+  color: black;
+  font-size: 1.3rem;
 }
 
 </style>
