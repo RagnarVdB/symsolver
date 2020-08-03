@@ -84,7 +84,6 @@ export default {
       this.$set(this.bounds, row, new_row) // gebruik $set voor reactiviteit
     },
     reRender() {
-      console.log('rerendering')
       if (window.MathJax) {
         window.MathJax.typeset()
       }
@@ -106,10 +105,11 @@ export default {
           redirect: 'follow',
           body
         })
-          .then(res => res.text())
+          .then(res => res.json())
           .then(data => {
             this.loading = false
             console.log(data)
+            this.$router.push({path: `/result/${data}`})
           })
           .catch(err => console.error(err))
       }
