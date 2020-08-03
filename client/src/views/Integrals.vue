@@ -36,6 +36,13 @@
     <div id="preview">
       <p :key="latex">$${{ latex }}$$</p>
     </div>
+    <p v-if="notAllVars && showErrors" class="error">Please enter all variables.</p>
+    <p v-if="invalidSymbolsIntegrand" class="error">The integrand contains invalid symbols.</p>
+    <p v-if="invalidSymbolsBounds" class="error">One of the bounds contains invalid symbols.</p>
+    <p v-if="notLowerAndUpper && showErrors" class="error">All bounds should have both lower and upper bounds, or no bounds</p>
+    <p v-if="impossibleBounds" class="error">No valid order of integrals is possible.</p>
+    <button @click="integrate">Integrate!</button>
+    <div class="lds-ring" v-if="loading"><div></div><div></div><div></div><div></div></div>
   </div>
 </template>
 
@@ -51,9 +58,12 @@ export default {
   },
   data() {
     return {
+      url: 'http://127.0.0.1:5000/v1/integral',
       varAmount: 1,
       integrand: '',
       bounds: [['', '', '']],
+      showErrors: false,
+      loading: false
     }
   },
   mounted() {
@@ -79,6 +89,31 @@ export default {
         window.MathJax.typeset()
       }
     },
+    integrate() {
+      this.showErrors = true
+      if (!this.notAllVars && !this.impossibleBounds && !this.invalidSymbolsIntegrand && !this.invalidSymbolsBounds && !this.notLowerAndUpper) {
+        this.loading = true
+        console.log('fetching')
+        const body = JSON.stringify({
+          integrand: this.integrand,
+          bounds: this.boundsOrdered
+        })
+        fetch(this.url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          redirect: 'follow',
+          body
+        })
+          .then(res => res.text())
+          .then(data => {
+            this.loading = false
+            console.log(data)
+          })
+          .catch(err => console.error(err))
+      }
+    }
   },
   computed: {
     latex() {
@@ -116,6 +151,26 @@ export default {
         return getCorrectOrder(this.bounds, usedVars)
         
       }
+    },
+    invalidSymbolsIntegrand() {
+      // true wanneer de integrand verkeerde symbolen bevat
+      return false
+    },
+    invalidSymbolsBounds() {
+      // true wanneer één van de grenzen verkeerde symbolen bevat
+      return false
+    },
+    notAllVars() {
+      // true wanneer niet alle vakjes voor variabelen correct zijn ingevuld
+      return !this.bounds.every(bound => bound[0] && bound[0].match(/[a-z]/i)) || this.bounds.length != this.varAmount
+    },
+    impossibleBounds() {
+      // true wanneer geen geldige volgorde integralen kan worden gevonden
+      return (!this.notAllVars && !this.boundsOrdered)
+    },
+    notLowerAndUpper() {
+      // true wanneer sommige grenzen enkel ondergrens of bovengrens hebben
+      return !this.bounds.every(bound => (bound[1] && bound[2]) || !(bound[1] || bound[2]))
     }
   },
   watch: {
@@ -146,6 +201,20 @@ p {
   font-size: 0.9rem;
   font-weight: 300;
   color: rgba(0, 0, 0, 0.6);
+}
+
+button {
+  margin-top: 40px;
+  width: 50vw;
+  height: 50px;
+  background-color: #01579B;
+  border: none;
+  border-radius: 15px;
+  color: white;
+  align-self: center;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 400;
 }
 
 input {
@@ -228,6 +297,7 @@ input.large {
 
 #preview {
   margin-top: 40px;
+  padding: 5px;
   width: 90%;
   height: fit-content;
   align-self: center;
@@ -244,5 +314,49 @@ input.large {
   font-size: 1.3rem;
   overflow: scroll;
 }
+
+.error {
+  margin-top: 30px;
+  color: red;
+  font-size: 1rem;
+}
+
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  align-self: center;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 6px solid #01579B;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #01579B transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 
 </style>
