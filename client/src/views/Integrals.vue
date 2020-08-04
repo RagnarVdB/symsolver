@@ -55,10 +55,11 @@ export default {
     const MathJax = document.createElement('script')
     MathJax.setAttribute('src', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js')
     document.head.appendChild(MathJax)
+    this.reRender()
   },
   data() {
     return {
-      url: 'http://127.0.0.1:5000/v1/integral',
+      url: process.env.VUE_APP_IP + 'v1/integral', // environment variable, wijst naar localhost in development en server IP in productie
       varAmount: 1,
       integrand: '',
       bounds: [['', '', '']],
@@ -92,11 +93,11 @@ export default {
       this.showErrors = true
       if (!this.notAllVars && !this.impossibleBounds && !this.invalidSymbolsIntegrand && !this.invalidSymbolsBounds && !this.notLowerAndUpper) {
         this.loading = true
-        console.log('fetching')
         const body = JSON.stringify({
           integrand: this.integrand,
           bounds: this.boundsOrdered
         })
+        console.log(this.url)
         fetch(this.url, {
           method: 'POST',
           headers: {
