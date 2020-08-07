@@ -188,7 +188,7 @@ export default {
   text-align: start;
 }
 h2 {
-  color: black;
+  color: #002F6C;
   font-size: 1.15rem;
   font-weight: 400;
 }
@@ -356,6 +356,15 @@ input.large {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+/* Desktop versie */
+@media screen and (min-width: 800px){
+  .integrals {
+    display: grid;
+    margin-top: 65px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr
   }
 }
 
