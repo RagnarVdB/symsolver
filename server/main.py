@@ -1,8 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 import sympy as sp
+from sympy.parsing.sympy_parser import parse_expr
 
-from modules.parser import parse
+from modules.parser import parser
 
 app = Flask(__name__)
 CORS(app)
@@ -10,7 +11,7 @@ CORS(app)
 def test():
   if request.method == "POST":
     data = request.json
-    integrand = parse(data["integrand"])
+    integrand = parse_expr( parser(data["integrand"]) )
     bounds = data["bounds"]
     I = integrand
     for bound in bounds[::-1]:

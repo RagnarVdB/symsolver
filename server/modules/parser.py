@@ -1,5 +1,3 @@
-from sympy.parsing.sympy_parser import parse_expr
-
 def parser(formula):
     numbers = ['0','1','2','3','4','5','6','7','8','9']
     operators = ['+','-','*','/',' ','(',')']
@@ -26,10 +24,14 @@ def parser(formula):
     return formula
 
 
-assert parser('2^5') == '2**5'
-assert parser('2x') == '2*x'
-assert parser('sin(x)') == 'sin(x)'
-assert parser('sin(2x)') == 'sin(2*x)'
-assert parser('sinh(x)') == 'sinh(x)'
-assert parser('22') == '22'
-assert parser('x2') == 'x*2'
+if __name__ == "__main__":
+    assert parser('2^5') == '2**5'
+    assert parser('2x') == '2*x'
+    assert parser('sin(x)') == 'sin(x)'
+    assert parser('sin(2x)') == 'sin(2*x)'
+    assert parser('sinh(x)') == 'sinh(x)'
+    assert parser('22') == '22'
+    assert parser('x2') == 'x*2'
+    assert parser('2*pi^2 + theta') == "2*pi**2 + theta"
+    assert parser('arcsin') == "asin"
+    assert parser('arcsinh') == "asinh"
