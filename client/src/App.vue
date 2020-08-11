@@ -302,5 +302,9 @@ hr {
     font-size: 1.2rem;
     line-height: 26px;
   }
+
+  #grey {
+    display: none;
+  }
 }
 </style>

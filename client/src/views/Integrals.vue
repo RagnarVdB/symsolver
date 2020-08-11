@@ -41,7 +41,7 @@
     <p v-if="invalidSymbolsBounds" class="error">One of the bounds contains invalid symbols.</p>
     <p v-if="notLowerAndUpper && showErrors" class="error">All bounds should have both lower and upper bounds, or no bounds</p>
     <p v-if="impossibleBounds" class="error">No valid order of integrals is possible.</p>
-    <button @click="integrate">Integrate!</button>
+    <button @click="integrate" id="Integrate">Integrate!</button>
     <div class="lds-ring" v-if="loading"><div></div><div></div><div></div><div></div></div>
   </div>
 </template>
@@ -204,7 +204,12 @@ p {
   color: rgba(0, 0, 0, 0.6);
 }
 
+.integrals {
+  padding-bottom: 5vh;
+}
+
 button {
+  grid-area: Button;
   margin-top: 40px;
   width: 50vw;
   height: 50px;
@@ -257,6 +262,7 @@ input.large {
 }
 
 #variables {
+  grid-area: Number;
   width: 100%;
   display: flex;
   align-items: center;
@@ -268,11 +274,13 @@ input.large {
 }
 
 #integrand {
+  grid-area: Integrand;
   display: flex;
   flex-direction: column;
 }
 
 #bounds {
+  grid-area: Bounds;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -297,6 +305,7 @@ input.large {
 }
 
 #preview {
+  grid-area: Integral;
   margin-top: 40px;
   padding: 5px;
   width: 90%;
@@ -313,7 +322,8 @@ input.large {
   text-align: center;
   color: black;
   font-size: 1.3rem;
-  overflow: scroll;
+  overflow: auto;
+  width: 100%;
 }
 
 .error {
@@ -359,12 +369,26 @@ input.large {
   }
 }
 /* Desktop versie */
-@media screen and (min-width: 800px){
+@media screen and (min-width: 900px){
   .integrals {
+    justify-content: center;
     display: grid;
-    margin-top: 65px;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr
+    margin-top: 80px;
+    grid-template-columns: 400px 400px;
+    grid-template-rows: auto;
+    grid-gap: 3vh 8vw;
+    grid-template-areas: 
+    "Number Integral"
+    "Integrand Integral"
+    "Bounds Button";
+    }
+  #preview {
+    margin-top: 0px;
+  }
+  #Integrate {
+    grid-area: Button;
+    width: 60%;
+    justify-self: center;
   }
 }
 
