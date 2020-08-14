@@ -3,14 +3,17 @@
     <div>
       <p>$${{ $route.params.result }}$$</p>
     </div>
-    <router-link to="/integrals" class="button">
-    <h2>New integral</h2>
+    <router-link
+      to="/integrals"
+      class="button"
+    >
+      <h2>New integral</h2>
     </router-link>
   </div>
 </template>
 <script>
 export default {
-  name: 'result',
+  name: 'Result',
   mounted() {
     // laad mathjax
     let MathJax = document.createElement('script')

@@ -3,60 +3,95 @@
     <div id="variables">
       <h2>Number of Variables: </h2>
       <input
-        type="number"
         v-model.number="varAmount"
-        class="small">
+        type="number"
+        class="small"
+      >
     </div>
     <div id="integrand">
       <h2>Integrand:</h2>
       <input
-        type="text"
         v-model="integrand"
-        class="large">
+        type="text"
+        class="large"
+      >
     </div>
     <div id="bounds">
       <h2>Variables and bounds</h2>
-      <div id=bounds-table>
+      <div id="bounds-table">
         <h3>Variable</h3>
         <h3>Lower bound</h3>
         <h3>Upper bound</h3>
-          <input
-            type="text"
-            v-for="n in 3*varAmount"
-            v-bind:key="n"
+        <input
+          v-for="n in 3*varAmount"
+          :key="n"
+          type="text"
             
-            v-on:input="setBounds(n - 1, $event.target.value)"
-            >
-            
+          @input="setBounds(n - 1, $event.target.value)"
+        >
       </div>
-      <p>Bounds can be left empty for indefinite integrals. Use inf for infinity. 
+      <p>
+        Bounds can be left empty for indefinite integrals. Use inf for infinity. 
         <br>
-        Symbols in the integrand not entered as variables will be treated as parameters.</p>
+        Symbols in the integrand not entered as variables will be treated as parameters.
+      </p>
     </div>
     <div id="preview">
-      <p :key="latex">$${{ latex }}$$</p>
+      <p :key="latex">
+        $${{ latex }}$$
+      </p>
     </div>
-    <p v-if="notAllVars && showErrors" class="error">Please enter all variables.</p>
-    <p v-if="invalidSymbolsIntegrand" class="error">The integrand contains invalid symbols.</p>
-    <p v-if="invalidSymbolsBounds" class="error">One of the bounds contains invalid symbols.</p>
-    <p v-if="notLowerAndUpper && showErrors" class="error">All bounds should have both lower and upper bounds, or no bounds</p>
-    <p v-if="impossibleBounds" class="error">No valid order of integrals is possible.</p>
-    <button @click="integrate" id="Integrate">Integrate!</button>
-    <div class="lds-ring" v-if="loading"><div></div><div></div><div></div><div></div></div>
+    <p
+      v-if="notAllVars && showErrors"
+      class="error"
+    >
+      Please enter all variables.
+    </p>
+    <p
+      v-if="invalidSymbolsIntegrand"
+      class="error"
+    >
+      The integrand contains invalid symbols.
+    </p>
+    <p
+      v-if="invalidSymbolsBounds"
+      class="error"
+    >
+      One of the bounds contains invalid symbols.
+    </p>
+    <p
+      v-if="notLowerAndUpper && showErrors"
+      class="error"
+    >
+      All bounds should have both lower and upper bounds, or no bounds
+    </p>
+    <p
+      v-if="impossibleBounds"
+      class="error"
+    >
+      No valid order of integrals is possible.
+    </p>
+    <button
+      id="Integrate"
+      @click="integrate"
+    >
+      Integrate!
+    </button>
+    <div
+      v-if="loading"
+      class="lds-ring"
+    >
+      <div /><div /><div /><div />
+    </div>
   </div>
 </template>
 
 <script>
 import getCorrectOrder from '../functions/IntegralOrder.js'
+import latexGenerator from '../functions/latexGenerator.js'
 
 export default {
   name: 'Integrals',
-  created() {
-    const MathJax = document.createElement('script')
-    MathJax.setAttribute('src', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js')
-    document.head.appendChild(MathJax)
-    this.reRender()
-  },
   data() {
     return {
       url: process.env.VUE_APP_IP + 'v1/integral', // environment variable, wijst naar localhost in development en server IP in productie
@@ -67,55 +102,6 @@ export default {
       loading: false
     }
   },
-  mounted() {
-    // laad mathjax
-    let MathJax = document.createElement('script')
-    MathJax.setAttribute('src', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js')
-    document.head.appendChild(MathJax)
-  },
-  methods: {
-    setBounds(n, value) {
-      const row = Math.floor(n/3)
-      const column = n % 3
-      if (!this.bounds[row]) {
-        this.bounds[row] = ['', '', ''] //voeg lege rij toe aan matrix voor nieuwe variabele
-      }
-      let new_row = this.bounds[row]
-      new_row[column] = value
-      this.$set(this.bounds, row, new_row) // gebruik $set voor reactiviteit
-    },
-    reRender() {
-      if (window.MathJax) {
-        window.MathJax.typeset()
-      }
-    },
-    integrate() {
-      this.showErrors = true
-      if (!this.notAllVars && !this.impossibleBounds && !this.invalidSymbolsIntegrand && !this.invalidSymbolsBounds && !this.notLowerAndUpper) {
-        this.loading = true
-        const body = JSON.stringify({
-          integrand: this.integrand,
-          bounds: this.boundsOrdered
-        })
-        console.log(this.url)
-        fetch(this.url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          redirect: 'follow',
-          body
-        })
-          .then(res => res.json())
-          .then(data => {
-            this.loading = false
-            console.log(data)
-            this.$router.push({path: `/result/${data}`})
-          })
-          .catch(err => console.error(err))
-      }
-    }
-  },
   computed: {
     latex() {
       let latex_string = ''
@@ -123,7 +109,7 @@ export default {
       for (let bound of bounds) {
         latex_string += `\\int_{${bound[1]}}^{${bound[2]}}`
       }
-      latex_string += this.integrand // moet Latex code worden
+      latex_string += latexGenerator(this.integrand) // moet Latex code worden
       const boundsReversed = bounds.slice().reverse()
       for (let bound of boundsReversed) {
         if (bound[0]) {
@@ -178,6 +164,61 @@ export default {
     latex() {
       // wacht tot volgende cycle event loop zodat nieuwe code gerenderd wordt
       this.$nextTick().then(() => { this.reRender() })
+    }
+  },
+  created() {
+    const MathJax = document.createElement('script')
+    MathJax.setAttribute('src', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js')
+    document.head.appendChild(MathJax)
+    this.reRender()
+  },
+  mounted() {
+    // laad mathjax
+    let MathJax = document.createElement('script')
+    MathJax.setAttribute('src', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js')
+    document.head.appendChild(MathJax)
+  },
+  methods: {
+    setBounds(n, value) {
+      const row = Math.floor(n/3)
+      const column = n % 3
+      if (!this.bounds[row]) {
+        this.bounds[row] = ['', '', ''] //voeg lege rij toe aan matrix voor nieuwe variabele
+      }
+      let new_row = this.bounds[row]
+      new_row[column] = value
+      this.$set(this.bounds, row, new_row) // gebruik $set voor reactiviteit
+    },
+    reRender() {
+      if (window.MathJax) {
+        window.MathJax.typeset()
+      }
+    },
+    integrate() {
+      this.showErrors = true
+      if (!this.notAllVars && !this.impossibleBounds && !this.invalidSymbolsIntegrand && !this.invalidSymbolsBounds && !this.notLowerAndUpper) {
+        this.loading = true
+        const body = JSON.stringify({
+          integrand: this.integrand,
+          bounds: this.boundsOrdered
+        })
+        console.log(this.url)
+        fetch(this.url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          redirect: 'follow',
+          body
+        })
+          .then(res => res.json())
+          .then(data => {
+            this.loading = false
+            console.log(data)
+            this.$router.push({path: `/result/${data}`})
+          })
+          .catch(err => console.error(err))
+      }
     }
   }
 }
