@@ -87,8 +87,8 @@
 </template>
 
 <script>
-import getCorrectOrder from '../functions/IntegralOrder.js'
-import latexGenerator from '../functions/latexGenerator.js'
+import getCorrectOrder from '@/functions/IntegralOrder.js'
+import latexGenerator from '@/functions/latexGenerator.js'
 
 export default {
   name: 'Integrals',
