@@ -61,13 +61,28 @@ def parser(formula):
 
 
 if __name__ == "__main__":
-    assert parser('2^5') == '2**5'
-    assert parser('2x') == '2*x'
-    assert parser('sin(x)') == 'sin(x)'
-    assert parser('sin(2x)') == 'sin(2*x)'
-    assert parser('sinh(x)') == 'sinh(x)'
-    assert parser('22') == '22'
-    assert parser('x2') == 'x*2'
-    assert parser('2*pi^2 + theta') == "2*pi**2 + theta"
-    assert parser('arcsin(x)') == "asin(x)"
-    assert parser('arcsinh(x)') == "asinh(x)"
+    test_cases = [
+        ('2^5', '2**5'),
+        ('2x', '2*x'),
+        ('sin(x)', 'sin(x)'),
+        ('sin(2x)', 'sin(2*x)'),
+        ('sinh(x)', 'sinh(x)'),
+        ('22', '22'),
+        ('x2', 'x*2'),
+        ('2*pi^2 + theta', "2*pi**2 + theta"),
+        ('arcsin(x)', "asin(x)"),
+        ('arcsinh(x)', "asinh(x)"),
+        ('x^2', 'x**2'),
+        ('2x_1', '2*x_1'),
+        ('2theta_1^2', '2*theta_1**2')
+    ]
+    correct = 0
+    i = 1
+    for test_case in test_cases:
+        if parser(test_case[0]) == test_case[1]:
+            correct +=1
+            print('✅ passed test case ' + str(i))
+        else:
+            print('❌ failed test case ' + str(i))
+            print('    returned {0} ipv {1}'.format(parser(test_case[0]), test_case[1]))
+        i += 1
