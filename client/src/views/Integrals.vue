@@ -303,11 +303,11 @@ input.large {
 }
 
 #variables {
+  margin-top: 70px;
   grid-area: Number;
   width: 100%;
   display: flex;
   align-items: center;
-  margin-top: 0px;
 }
 
 #variables h2{

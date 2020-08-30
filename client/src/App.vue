@@ -156,6 +156,7 @@ h2 {
 }
 
 header {
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -201,7 +202,7 @@ header {
 nav {
   height: 100vh;
   width: 80vw;
-  position: absolute;
+  position: fixed ;
   background-color: white;
   left: -80vw;
   transition: 0.5s ease;
