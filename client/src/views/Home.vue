@@ -5,11 +5,6 @@
         <h1>Symbolic calculations made easy</h1>
         <p>Sympy-GUI is an online symbolic calculator based on sympy. Solve integrals, derivatives and differential equations with ease!</p>
       </div>
-      <img
-        src="@/assets/Graph.png"
-        alt="Graph"
-        class="desktop"
-      >
     </div>
     <div class="features">
       <div
@@ -38,19 +33,19 @@
     </div>
     <footer>
       <div>
-        <h2>How it works</h2>
+        <h3>How it works</h3>
         <p>All calculations on Sympy-GUI are made by the open-source python library sympy. Learn more about sympy at www.sympy.org</p>
       </div>
       <div>
-        <h2>About us</h2>
+        <h3>About us</h3>
         <p>Sympy-GUI is built and maintained by three Belgian university students committed to making maths easier for everyone.</p>
       </div>
       <div>
-        <h2>Contact</h2>
+        <h3>Contact</h3>
         <p>Contact us about bugs and improvements at Bjarne.Vergouwen@gmail.com</p>
       </div>
       <div>
-        <h2>Privacy Policy</h2>
+        <h3>Privacy Policy</h3>
         <p>Sympy-GUI makes use of third party cookies by Google. By using this site you agree to the terms of service.</p>
       </div>
     </footer>
@@ -129,6 +124,13 @@ h2 {
   line-height: 1.3;
 }
 
+h3 {
+  font-size: 1.8rem;
+  font-family: Poppins, sans-serif;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
 p {
   font-family: roboto, sans-serif;
   font-weight: 300;
@@ -162,7 +164,7 @@ button:hover {
 }
 
 .header {
-  margin-top: 70px;
+  margin-top: 65px;
   display: flex;
   width: 100%;
   background-image: url("../assets/vector_mobile.svg");
@@ -231,6 +233,7 @@ button:hover {
 }
 
 footer {
+  width: 100%;
   background-color: #444444;
   color: white;
   display: flex;
@@ -246,8 +249,7 @@ footer > div {
   width: 85%;
 }
 
-footer h2 {
-  font-size: 1.4rem;
+footer h3 {
   margin-top: 25px;
   margin-bottom: 10px;
 }
@@ -256,5 +258,137 @@ footer p {
   width: 100%;
   font-size: 1rem;
   font-weight: 200;
+}
+
+footer h3 {
+  margin-bottom: 20px;
+}
+
+@media screen and (min-width: 800px) {
+.desktop {
+  display: block;
+}
+.mobile {
+  display: none;
+}
+
+.home {
+  background-size: 30%;
+}
+
+h1 {
+  font-size: 4.5rem;
+}
+
+h2 {
+  font-size: 3.8rem;
+}
+
+h3 {
+
+}
+p {
+  font-size: 1.6rem;
+}
+
+button {
+  width: 90%;
+  height: 60px;
+  font-size: 1.5rem;
+}
+
+.header {
+  box-sizing: border-box;
+  width: 100vw;
+  height: calc(100vh - 70px);
+  background-image: url('../assets/Graph.png');
+  background-position: center center;
+  background-size: 100%;
+  padding: 0;
+}
+
+.Title {
+  margin: 0;
+  background-image: url('../assets/vector_desktop.svg');
+  background-size: auto 105%;
+  box-sizing: border-box;
+  width: 45%;
+  min-width: 650px;
+  flex-grow: 0;
+  background-position: right center;
+  padding: 20px 130px 80px 100px;
+  justify-content: space-around;
+}
+
+.Title h1 {
+  width: 70%;
+}
+
+.Title p {
+  width: 75%;
+  align-self: flex-start;
+  text-align: left;
+}
+
+.feature {
+  display: flex;
+  flex-direction: row;
+  min-width: 1000px;
+  width: 70vw;
+  max-width: 100vw;
+}
+
+.feature div {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+.feature div * {
+  margin-bottom: 30px;
+}
+
+.feature img {
+  width: 50%;
+  margin-left: 5%;
+}
+
+footer {
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: baseline;
+  height: 25vh;
+}
+
+footer div {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+
+footer p {
+  text-align: left;
+}
+}
+@media screen and (max-width: 900px) {
+  h1 {
+    font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+  }
+  p {
+    font-size: 1.3rem;
+  }
+
+  .Title {
+    min-width: 550px;
+  }
+
+  .feature {
+    min-width: 100%;
+  }
+
 }
 </style>
