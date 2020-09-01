@@ -38,7 +38,7 @@
       </div>
       <div>
         <h3>About us</h3>
-        <p>Sympy-GUI is built and maintained by three Belgian university students committed to making maths easier for everyone.</p>
+        <p>Sympy-GUI is built and maintained by three Belgian university students committed to making math easier for everyone.</p>
       </div>
       <div>
         <h3>Contact</h3>
@@ -186,6 +186,8 @@ button:hover {
 
 .Title {
   flex-grow: 1;
+  max-width: 100%;
+  min-width: 100px;
   margin: 30px;
   margin-bottom: 120px;
   display: flex;
@@ -240,6 +242,7 @@ footer {
   flex-direction: column;
   align-items: center;
   padding: 10px 20px 40px 20px;
+  box-sizing: border-box;
 }
 
 footer > div {
@@ -370,7 +373,7 @@ footer p {
   text-align: left;
 }
 }
-@media screen and (max-width: 900px) {
+/* @media screen and (max-width: 900px) {
   h1 {
     font-size: 3rem;
   }
@@ -390,5 +393,5 @@ footer p {
     min-width: 100%;
   }
 
-}
+} */
 </style>

@@ -74,7 +74,10 @@ if __name__ == "__main__":
         ('arcsinh(x)', "asinh(x)"),
         ('x^2', 'x**2'),
         ('2x_1', '2*x_1'),
-        ('2theta_1^2', '2*theta_1**2')
+        ('2theta_1^2', '2*theta_1**2'),
+        ('log(x)', 'log(x)'),
+        ('ln(x)', 'log(x)'),
+        ('srqt(x)', 'sqrt(x)')
     ]
     correct = 0
     i = 1
