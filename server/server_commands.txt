@@ -1,5 +1,5 @@
 Lanceer met pid in file:
-  $ gunicorn main:app -p main.pid -D
+  $ gunicorn main:app -w 9 -p main.pid -D
 Herstart server: 
   $ kill -HUP `cat main.pid`
 Kill server:
