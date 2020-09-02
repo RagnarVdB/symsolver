@@ -105,6 +105,10 @@ export default {
   font-display: swap;
 }
 
+* {
+  max-width: 100vw;
+}
+
 .desktop {
   display: none;
 }
@@ -169,6 +173,7 @@ button:hover {
   width: 100%;
   background-image: url("../assets/vector_mobile.svg");
   background-position: center bottom;
+  background-size: 100%;
 }
 
 .header h1 {
@@ -189,7 +194,7 @@ button:hover {
   max-width: 100%;
   min-width: 100px;
   margin: 30px;
-  margin-bottom: 120px;
+  margin-bottom: 30%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -280,18 +285,18 @@ footer h3 {
 }
 
 h1 {
-  font-size: 4.5rem;
+  font-size: 3rem;
 }
 
 h2 {
-  font-size: 3.8rem;
+  font-size: 2.5rem;
 }
 
 h3 {
-
+  font-size: 1.6rem;
 }
 p {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
 }
 
 button {
@@ -301,9 +306,10 @@ button {
 }
 
 .header {
+  margin-top: 65px;
   box-sizing: border-box;
-  width: 100vw;
-  height: calc(100vh - 70px);
+  height: 100vh;
+  min-height: 600px;
   background-image: url('../assets/Graph.png');
   background-position: center center;
   background-size: 100%;
@@ -316,7 +322,7 @@ button {
   background-size: auto 105%;
   box-sizing: border-box;
   width: 45%;
-  min-width: 650px;
+  min-width: 550px;
   flex-grow: 0;
   background-position: right center;
   padding: 20px 130px 80px 100px;
@@ -336,7 +342,7 @@ button {
 .feature {
   display: flex;
   flex-direction: row;
-  min-width: 1000px;
+  min-width: 100%;
   width: 70vw;
   max-width: 100vw;
 }
@@ -359,7 +365,8 @@ footer {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: baseline;
-  height: 25vh;
+  min-height: min-content;
+  padding-bottom: 30px;
 }
 
 footer div {
@@ -373,25 +380,29 @@ footer p {
   text-align: left;
 }
 }
-/* @media screen and (max-width: 900px) {
+@media screen and (min-width: 1050px) {
   h1 {
-    font-size: 3rem;
+    font-size: 4.5rem;
   }
 
   h2 {
-    font-size: 2.5rem;
+    font-size: 3.8rem;
   }
+
+  h3 {
+    font-size: 2rem;
+  }
+
   p {
-    font-size: 1.3rem;
+    font-size: 1.6rem;
   }
 
   .Title {
-    min-width: 550px;
+    min-width: 650px;
   }
 
   .feature {
-    min-width: 100%;
+    min-width: 1000px;
   }
-
-} */
+} 
 </style>
