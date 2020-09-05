@@ -1,4 +1,4 @@
-# Sympy-GUI (betere naam nodig)
+# Symsolver (betere naam nodig)
 Dit is het repository voor sympy-gui.  
 Link naar het ontwerp in Figma (toegang nodig):
 https://www.figma.com/file/ctMm3mwTsvBXyXFuvrqtsr/website?node-id=2%3A0

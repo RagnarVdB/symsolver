@@ -1,3 +1,5 @@
 .vscode
 tests
 *.pyc
+# Local Netlify folder
+.netlify

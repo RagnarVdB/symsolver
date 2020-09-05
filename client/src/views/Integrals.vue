@@ -195,6 +195,11 @@ export default {
       }
     },
     integrate() {
+      this.$gtag.event('Integrate', {
+        'event_category': 'button',
+        'event_label': 'integrate',
+        'value': 'integrate'
+      })
       this.showErrors = true
       if (!this.notAllVars && !this.impossibleBounds && !this.invalidSymbolsIntegrand && !this.invalidSymbolsBounds && !this.notLowerAndUpper) {
         this.loading = true

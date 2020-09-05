@@ -3,7 +3,7 @@
     <div class="header">
       <div class="Title">
         <h1>Symbolic calculations made easy</h1>
-        <p>Sympy-GUI is an online symbolic calculator based on sympy. Solve integrals, derivatives and differential equations with ease!</p>
+        <p>Symsolver is an online symbolic calculator based on sympy. Solve integrals, derivatives and differential equations with ease!</p>
       </div>
     </div>
     <div class="features">
@@ -34,11 +34,11 @@
     <footer>
       <div>
         <h3>How it works</h3>
-        <p>All calculations on Sympy-GUI are made by the open-source python library sympy. Learn more about sympy at www.sympy.org</p>
+        <p>All calculations on Symsolver are made by the open-source python library sympy. Learn more about sympy at www.sympy.org</p>
       </div>
       <div>
         <h3>About us</h3>
-        <p>Sympy-GUI is built and maintained by three Belgian university students committed to making math easier for everyone.</p>
+        <p>Symsolver is built and maintained by three Belgian university students committed to making math easier for everyone.</p>
       </div>
       <div>
         <h3>Contact</h3>
@@ -46,7 +46,7 @@
       </div>
       <div>
         <h3>Privacy Policy</h3>
-        <p>Sympy-GUI makes use of third party cookies by Google. By using this site you agree to the terms of service.</p>
+        <p>Symsolver makes use of third party cookies by Google. By using this site you agree to the terms of service.</p>
       </div>
     </footer>
   </div>
