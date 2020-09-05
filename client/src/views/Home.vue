@@ -42,7 +42,7 @@
       </div>
       <div>
         <h3>Contact</h3>
-        <p>Contact us about bugs and improvements at Bjarne.Vergouwen@gmail.com</p>
+        <p>Contact us about bugs and improvements at vergbjarne@gmail.com</p>
       </div>
       <div>
         <h3>Privacy Policy</h3>

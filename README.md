@@ -1,4 +1,7 @@
 # Symsolver (betere naam nodig)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/556de0cc-6f6d-4850-9b09-eae6efa97968/deploy-status)](https://app.netlify.com/sites/competent-jang-62f68c/deploys)
+
+
 Dit is het repository voor sympy-gui.  
 Link naar het ontwerp in Figma (toegang nodig):
 https://www.figma.com/file/ctMm3mwTsvBXyXFuvrqtsr/website?node-id=2%3A0
