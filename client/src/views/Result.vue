@@ -1,8 +1,11 @@
 <template>
   <div id="result">
     <div>
-      <p>$${{ $route.params.result }}$$</p>
+      <p>$${{ $route.params.solution }}$$</p>
     </div>
+    <p class="message">
+      {{ $route.params.message }}
+    </p>
     <router-link
       to="/integrals"
       class="button"

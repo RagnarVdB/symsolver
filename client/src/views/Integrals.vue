@@ -71,6 +71,12 @@
     >
       No valid order of integrals is possible.
     </p>
+    <p
+      v-if="error"
+      class="error"
+    >
+      {{ errorMessage }}
+    </p>
     <button
       id="Integrate"
       @click="integrate"
@@ -99,7 +105,9 @@ export default {
       integrand: '',
       bounds: [['', '', '']],
       showErrors: false,
-      loading: false
+      loading: false,
+      error: false,
+      errorMessage: ''
     }
   },
   computed: {
@@ -220,9 +228,22 @@ export default {
           .then(data => {
             this.loading = false
             console.log(data)
-            this.$router.push({path: `/result/${data}`})
+            if (data.status !== 'error') {
+              if (!data.message) {
+                data.message = " "
+              }
+              this.$router.push({path: `/solution/${data.solution}/message/${data.message}`})
+            } else {
+              this.error = true
+              this.errorMessage = data.message
+            }
           })
-          .catch(err => console.error(err))
+          .catch(err => {
+            console.error(err)
+            this.loading = false
+            this.error = true
+            this.errorMessage = 'Something went wrong, the server or your internet connection may be down.'
+            })
       }
     }
   }

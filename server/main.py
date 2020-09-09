@@ -7,27 +7,55 @@ from modules.parser import parser
 
 app = Flask(__name__)
 CORS(app)
-@app.route("/v1/integral", methods=["POST"])
-def test():
-  if request.method == "POST":
-    data = request.json
+
+def solveIntegral(data):
+  try:
     integrand = parse_expr( parser(data["integrand"]) )
-    bounds = data["bounds"]
-    I = integrand
-    for bound in bounds[::-1]:
-      x = sp.symbols(bound[0])
-      if bound[1] == "" or bound[2] == "":
-        I = sp.Integral(I, x)
-      else:
-        I = sp.Integral(I, (x, bound[1], bound[1]))
-    solution = sp.latex(I.doit())
-    return jsonify(solution)
+  except:
+    return {"solution": "", "status": "error", "message": "Didn't understand integrand."}
+  bounds = data["bounds"]
+  I = integrand
+  all_bounds = True
+  for bound in bounds[::-1]:
+    x = sp.symbols(bound[0])
+    if bound[1] == "" or bound[2] == "":
+      all_bounds = False
+      I = sp.Integral(I, x)
+    else:
+      try:
+        I = sp.Integral(I, (x, parser(bound[1]), parser(bound[2])))
+      except:
+        return {"solution": "", "status": "error", "message": "Didn't understand bounds."}
+  try:
+    res = I.doit()
+    if res != I:
+      solution = sp.latex(res)
+      return {"solution": solution, "status": "success", "message": ""}
+    else:
+      raise "no solution"
+  except:
+    if all_bounds:
+      try:
+        res = I.as_sum(100, "midpoint").evalf()
+        solution = sp.latex(sp.N(res))
+        return {"solution": solution, "status": "numerical", "message": "No exact solution could be found. Integral was approximated numerically."}
+      except:
+        return {"solution": "", "status": "error", "message": "No solution could be found, definite integral may be approximated numerically"}
+  return {"solution": "", "status": "error", "message": "No solution could be found, definite integral may be approximated numerically"}
+
+@app.route("/v1/integral", methods=["POST"])
+def integral():
+  data = request.json
+  result = solveIntegral(data)
+  print(result)
+  return jsonify(result)
 
 # Github deployment
 @app.route("/webhooks/github", methods=["POST"])
 def reload():
   print("received push")
   data = request.json
+  print(data)
   try:
     repo = data["repository"]["id"]
   except:

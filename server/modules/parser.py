@@ -77,7 +77,9 @@ if __name__ == "__main__":
         ('2theta_1^2', '2*theta_1**2'),
         ('log(x)', 'log(x)'),
         ('ln(x)', 'log(x)'),
-        ('sqrt(x)', 'sqrt(x)')
+        ('sqrt(x)', 'sqrt(x)'),
+        ('+inf', '+oo'),
+        ('-inf', '-oo')
     ]
     correct = 0
     i = 1

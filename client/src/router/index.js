@@ -20,7 +20,7 @@ Vue.use(VueRouter)
     component: () => import(/* webpackChunkName: "about" */ '../views/Integrals.vue')
   },
   {
-    path: '/result/:result',
+    path: '/solution/:solution/message/:message',
     name: 'Result',
     component: Result
   }
