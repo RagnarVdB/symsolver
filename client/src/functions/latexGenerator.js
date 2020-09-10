@@ -36,6 +36,29 @@ function getCorrespondingBracket(input, firstIndex) {
 function latexGenerator(input) {
   // spaties en machten
   let string = input.replace(/\*\*/g, '^').replace(/ /g, '')
+
+  // keywords
+  const keywords = ['sin', 'cos', 'tan', 'sec', 'csc', 'cot', 'arcsin', 'arccos', 'arctan', 'log', 'ln', 'sqrt', 'sinh', 'cosh', 'tanh']
+  for (const keyword of keywords) {
+    const regex = new RegExp(keyword, 'g')
+    const indices = []
+    let result
+    while ( (result = regex.exec(string)) ) {
+      indices.push(result.index)
+    }
+    let extraChars = 0
+    for (const previndex of indices) {
+      const index = previndex + extraChars
+      const end = getCorrespondingBracket(string, index + keyword.length)
+      if (string[index + keyword.length] === '(' && end) {
+        string = string.slice(0, index) + '(' + string.slice(index, end) + ')' + string.slice(end, string.length)
+        extraChars += 2
+      } else {
+        return 'invalid'
+      }
+      
+    }
+  }
   // deling
   const max_loop = 20
   let j = 0
@@ -68,21 +91,20 @@ function latexGenerator(input) {
     string = string.slice(0, leftBlockStart) + ' \\frac {' + string.slice(leftBlockStart, string.length).replace('/', '} ')
   }
   // doe onnodige haakjes weg
-  console.log(string)
   for (let i = 0; i < string.length; i++) {
     if (string[i] === '^' && string[i+1] === '(') {
       const closing = getCorrespondingBracket(string, i+1)
-      console.log(closing)
-      console.log(string[closing+1])
       if (string[closing + 1] !== '^') {
         string = string.slice(0, i + 1) + '{' + string.slice(i + 2, string.length)
         string = string.slice(0, closing) + '}' + string.slice(closing + 1, string.length)
       }
     }
   }
-  console.log(string)
+  if (string[0] === '(' && getCorrespondingBracket(string, 0) === string.length - 1) {
+    string = string.slice(1, string.length - 1)
+  }
   return string.replace(/\(/g, '{(' ).replace(/\)/g, ')}').replace(/\*/g, ' \\cdot ')
 }
 
-export default latexGenerator
-// console.log(latexGenerator('(x-1)^(x+1)*x'))
+ export default latexGenerator
+// console.log(latexGenerator('sin(x) + e^sin(x)'))

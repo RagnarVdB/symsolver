@@ -117,7 +117,13 @@ export default {
       for (let bound of bounds) {
         latex_string += `\\int_{${bound[1]}}^{${bound[2]}}`
       }
-      latex_string += latexGenerator(this.integrand) // moet Latex code worden
+      let integrand
+      try {
+        integrand = latexGenerator(this.integrand)
+      } catch (e) {
+        integrand = 'invalid'
+      }
+      latex_string += integrand
       const boundsReversed = bounds.slice().reverse()
       for (let bound of boundsReversed) {
         if (bound[0]) {
@@ -174,17 +180,12 @@ export default {
       this.$nextTick().then(() => { this.reRender() })
     }
   },
-  created() {
-    const MathJax = document.createElement('script')
-    MathJax.setAttribute('src', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js')
-    document.head.appendChild(MathJax)
-    this.reRender()
-  },
   mounted() {
     // laad mathjax
     let MathJax = document.createElement('script')
     MathJax.setAttribute('src', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js')
     document.head.appendChild(MathJax)
+    this.reRender()
   },
   methods: {
     setBounds(n, value) {
