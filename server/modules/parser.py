@@ -1,9 +1,9 @@
 def parser(formula):
     numbers = ['0','1','2','3','4','5','6','7','8','9']
-    operators = ['+','-','*','/',' ','(',')']
-    goniometrische = ['sin(', 'cos(', 'tan(', 'cot(','csc(','sec(']
-    hyperbolische=['sinh(','cosh(','tanh(','coth(','sech(','csch(']
-    grieks_2 = ['pi','xi','mu','nu']
+    operators = ['+','-','*','/',' ','(',')','_']
+    goniometrische = ['sin(', 'cos(', 'tan(', 'cot(','csc(','sec(','log(']
+    hyperbolische=['sinh(','cosh(','tanh(','coth(','sech(','csch(','sqrt(']
+    grieks_2 = ['pi','xi','mu','nu','oo']
     grieks_3 = ['eta','rho','tau','phi','chi','psi']
     grieks_4 = ['beta','zeta','iota']
     grieks_5 = ['alpha','gamma','delta','theta','kappa','sigma','omega']
@@ -14,6 +14,10 @@ def parser(formula):
     inv_hyper = ['arcsin(','arccos(','arctan(','arccot(','arccsc(','arcsec(']
 
     new_formula = formula.replace('^', '**')
+    formula = new_formula
+    new_formula = formula.replace('ln','log')
+    formula = new_formula
+    new_formula = formula.replace('inf', 'oo')
     formula = new_formula
     elem = 0
     while elem < len(formula) - 1:
