@@ -118,12 +118,12 @@ export default {
         let lower
         let upper
         try {
-          lower = latexGenerator(bound[0])
+          lower = latexGenerator(bound[1])
         } catch (e) {
           lower = 'invalid'
         }
         try {
-          upper = latexGenerator(bound[1])
+          upper = latexGenerator(bound[2])
         } catch (e) {
           upper = 'invalid'
         }
