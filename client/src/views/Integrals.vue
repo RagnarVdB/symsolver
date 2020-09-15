@@ -115,7 +115,19 @@ export default {
       let latex_string = ''
       const bounds = (this.boundsOrdered) ? this.boundsOrdered : this.bounds
       for (let bound of bounds) {
-        latex_string += `\\int_{${bound[1]}}^{${bound[2]}}`
+        let lower
+        let upper
+        try {
+          lower = latexGenerator(bound[0])
+        } catch (e) {
+          lower = 'invalid'
+        }
+        try {
+          upper = latexGenerator(bound[1])
+        } catch (e) {
+          upper = 'invalid'
+        }
+        latex_string += `\\int_{${lower}}^{${upper}}`
       }
       let integrand
       try {

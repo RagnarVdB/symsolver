@@ -163,8 +163,8 @@ function latexGenerator(input) {
   if ((input.match(/\(/g) || []).length !== (input.match(/\)/g) || []).length) {
     throw 'invalid number of brackets'
   }
-  // spaties en machten
-  let string = input.replace(/\*\*/g, '^').replace(/ /g, '')
+  // spaties, machten, oneindig
+  let string = input.replace(/\*\*/g, '^').replace(/ /g, '').replace(/inf/g, '\\infty')
   // vierkantswortels
   string = sqrtHandler(string)
   // Getallen samenhouden
