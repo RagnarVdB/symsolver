@@ -64,12 +64,12 @@ export default {
           img: 'Double_integral.svg',
           to: '/integrals'
         },
-        {
-          title: 'Derivative Calculator',
-          info: 'Calculate regular and partial derivatives.',
-          img: 'partial_derivative.svg',
-          to: '/derivatives'
-        }
+        // {
+        //   title: 'Derivative Calculator',
+        //   info: 'Calculate regular and partial derivatives.',
+        //   img: 'partial_derivative.svg',
+        //   to: '/derivatives'
+        // }
       ]
     }
   },
