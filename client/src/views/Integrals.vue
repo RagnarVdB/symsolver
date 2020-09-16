@@ -6,6 +6,8 @@
         v-model.number="varAmount"
         type="number"
         class="small"
+        min="1"
+        oninput="validity.valid||(value='')"
       >
     </div>
     <div id="integrand">
