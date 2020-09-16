@@ -1,3 +1,5 @@
+import re
+
 def parser(formula):
     numbers = ['0','1','2','3','4','5','6','7','8','9']
     operators = ['+','-','*','/',' ','(',')','_']
@@ -19,6 +21,7 @@ def parser(formula):
     formula = new_formula
     new_formula = formula.replace('inf', 'oo')
     formula = new_formula
+    formula = re.sub(r'(?<![a-zA-Z])e(?![a-zA-Z])', 'E', formula)
     elem = 0
     while elem < len(formula) - 1:
         if formula[elem] not in operators:
