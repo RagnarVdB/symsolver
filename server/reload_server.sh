@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 echo "Pulling from master..."
 git pull origin master
 echo "Successfully pulled from master!"
