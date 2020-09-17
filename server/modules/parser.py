@@ -22,6 +22,10 @@ def parser(formula):
     new_formula = formula.replace('inf', 'oo')
     formula = new_formula
     formula = re.sub(r'(?<![a-zA-Z])e(?![a-zA-Z])', 'E', formula)
+    new_formula = formula.replace(²,**2)
+    formula= new_formula
+    new_formula = formula.replace(³,**3)
+    formula = new_formula
     elem = 0
     while elem < len(formula) - 1:
         if formula[elem] not in operators:
