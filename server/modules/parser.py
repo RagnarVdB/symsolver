@@ -22,9 +22,9 @@ def parser(formula):
     new_formula = formula.replace('inf', 'oo')
     formula = new_formula
     formula = re.sub(r'(?<![a-zA-Z])e(?![a-zA-Z])', 'E', formula)
-    new_formula = formula.replace(²,**2)
+    new_formula = formula.replace('²','**2')
     formula= new_formula
-    new_formula = formula.replace(³,**3)
+    new_formula = formula.replace('³','**3')
     formula = new_formula
     elem = 0
     while elem < len(formula) - 1:
@@ -90,7 +90,8 @@ if __name__ == "__main__":
         ('ln(x)', 'log(x)'),
         ('sqrt(x)', 'sqrt(x)'),
         ('+inf', '+oo'),
-        ('-inf', '-oo')
+        ('-inf', '-oo'),
+        ('x²', 'x**2')
     ]
     correct = 0
     i = 1
