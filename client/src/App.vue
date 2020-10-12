@@ -67,6 +67,13 @@
           /></svg>
           <h2>Integral Calculator</h2>
         </router-link>
+        <router-link
+          to="/errors"
+          class="menu_item"
+          @click.native="toggleNav"
+        >
+          <h2>Error propagation</h2>
+        </router-link>
       </div>
     </nav>
 

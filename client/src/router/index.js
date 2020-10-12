@@ -20,6 +20,11 @@ Vue.use(VueRouter)
     component: () => import(/* webpackChunkName: "about" */ '../views/Integrals.vue')
   },
   {
+    path: '/errors',
+    name: 'Error Propagation',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Errors.vue')
+  },
+  {
     path: '/solution/:solution/message/:message',
     name: 'Result',
     component: Result
